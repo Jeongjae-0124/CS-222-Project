@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined App</title>
+    <!-- Include Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-ezXEAgxB5o5gA8VH4A/juSNW9YxWUZnY3SRR1E3GGtjOv5K+q5t9Z7re5UpgAMe1" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        #container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            margin: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        #moodTracker,
+        main,
+        #calendarContainer {
+            flex: 1;
+            padding: 20px;
+        }
+
+        #moodTracker h1,
+        main h1,
+        #calendarContainer h1 {
+            background-color: #3498db;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-size: 24px;
+        }
+
+        #moodList {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .mood-entry {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeInUp 0.3s forwards;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mood-entry:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .mood-entry p {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .mood-entry .emoji {
+            font-size: 24px;
+            margin-right: 5px;
+        }
+
+        .mood-entry .recommended-song {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            white-space: nowrap;
+            text-align: center;
+            animation: fadeInUp 0.5s forwards;
+        }
+
+        .mood-entry .delete-btn {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 12px;
+            outline: none;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            font-size: 10px;
+            right: 5px;
+        }
+
+        .mood-entry .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        main {
+            width: 50%;
+            padding: 30px;
+            text-align: center;
+            background-color: #f8f8f8;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #moodSelector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-right: 10px;
+            color: #555;
+            font-size: 16px;
+        }
+
+        select {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            display: none;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        /* Shared styles */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Popup styling */
+        .recommended-popup {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            text-align: center;
+            animation: fadeInUp 0.5s forwards;
+            z-index: 999;
+        }
+
+        /* Calendar styles */
+        #calendarContainer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 15px;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .mood-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .happy { background-color: #ffd700; }
+        .sad { background-color: #87ceeb; }
+        .energetic { background-color: #ff69b4; }
+        .chill { background-color: #c1e1c1; }
+        .reflective { background-color: #ffc0cb; }
+        .excited { background-color: #ffcc00; }
+        .romantic { background-color: #ff99cc; }
+        .angry { background-color: #ff6347; }
+        .annoyed { background-color: #f08080; }
+        /* Add more mood colors as needed */
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            #container {
+                flex-direction: column;
+            }
+
+            main {
+                width: 100%;
+            }
+
+            #calendarContainer {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+
+        <!-- Mood Tracker Section -->
+        <div id="moodTracker">
+            <h1>Mood Tracker</h1>
+            <div id="moodList"></div>
+        </div>
+
+        <!-- Taylor Swift Song Recommender Section -->
+        <main>
+            <h1>Taylor Swift Song Recommender</h1>
+
+            <div id="moodSelector">
+                <label for="mood">Select your mood:</label>
+                <select id="mood">
+                    <option value="happy">😃 Happy</option>
+                    <option value="sad">😢 Sad</option>
+                    <option value="energetic">🚀 Energetic</option>
+                    <option value="chill">😌 Chill</option>
+                    <option value="reflective">🤔 Reflective</option>
+                    <option value="excited">😁 Excited</option>
+                    <option value="romantic">❤️ Romantic</option>
+                    <option value="angry">😡 Angry</option>
+                    <option value="annoyed">😠 Annoyed</option>
+                    <!-- Add more moods as needed -->
+                </select>
+                <button onclick="recommendSong()">Recommend Song</button>
+            </div>
+
+            <div id="result">
+                <h2>Recommended Taylor Swift Song</h2>
+                <p id="recommendedSong"></p>
+            </div>
+        </main>
+
+        <!-- Calendar Section -->
+        <div id="calendarContainer">
+            <h1>Calendar</h1>
+            <table>
+                <thead>
+                    <tr> 
+                    </tr>
+                </thead>
+                <tbody id="calendarBody"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script> 
+        const moodList = document.getElementById('moodList');
+        const moodSelector = document.getElementById('mood');
+        const recommendedSongDiv = document.getElementById('recommendedSong');
+        const resultDiv = document.getElementById('result');
+        const calendarContainer = document.getElementById('calendarContainer');
+
+        function addMoodToCalendar(mood, date) {
+    const calendarDay = document.createElement('div');
+    calendarDay.className = `mood-indicator ${mood}`;
+    calendarDay.innerHTML = `<span class="emoji">${getEmoji(mood)}</span>`;
+
+    const dayNumber = document.createElement('span');
+    dayNumber.className = 'day-number';
+    dayNumber.textContent = date.split('/')[1];
+
+    calendarDay.appendChild(dayNumber);
+    calendarContainer.appendChild(calendarDay);
+}
+
+
+        function addMood(mood, song) {
+            const currentDate = new Date().toLocaleDateString();
+
+            addMoodToCalendar(mood, currentDate);
+
+            const moodEntry = document.createElement('div');
+            moodEntry.className = 'mood-entry';
+
+            const moodContent = document.createElement('p');
+            moodContent.innerHTML = `<span class="emoji">${getEmoji(mood)}</span> <strong>${mood}</strong> - ${currentDate}`;
+            
+            const recommendedSong = document.createElement('p');
+            recommendedSong.className = 'recommended-song';
+            recommendedSong.textContent = `${song}`;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.className = 'delete-btn';
+            deleteButton.addEventListener('click', function () {
+                moodEntry.remove();
+            });
+
+            moodEntry.appendChild(moodContent);
+            moodEntry.appendChild(recommendedSong);
+            moodEntry.appendChild(deleteButton);
+            moodList.insertBefore(moodEntry, moodList.firstChild);
+
+            // Scroll to the top to show the latest entry
+            moodList.scrollTop = 0;
+
+            moodEntry.addEventListener('click', function (event) {
+                event.stopPropagation(); // Prevent the click event from triggering on the body
+                showRecommendedSongPopup(recommendedSong.textContent);
+            });
+        }
+
+        function showRecommendedSongPopup(song) {
+            const popup = document.createElement('div');
+            popup.className = 'recommended-popup';
+            popup.textContent = `🎵 Recommended Song: ${song}`;
+
+            document.body.appendChild(popup);
+
+            setTimeout(() => {
+                popup.style.opacity = '0';
+                setTimeout(() => {
+                    popup.remove();
+                }, 500);
+            }, 3000);
+        }
+
+        function recommendSong() {
+            const selectedMood = moodSelector.options[moodSelector.selectedIndex].value;
+
+            // More extensive list of Taylor Swift songs with album information
+            const songs = {
+                happy: ["Shake It Off", "22", "ME!", "Love Story"],
+                sad: ["All Too Well", "Back to December", "White Horse", "The Last Great American Dynasty"],
+                energetic: ["Blank Space", "Bad Blood", "Delicate", "Sparks Fly"],
+                chill: ["Lover", "Enchanted", "Wildest Dreams", "Begin Again"],
+                reflective: ["Long Live", "Fearless", "Red", "Clean"],
+                excited: ["Welcome to New York", "Holy Ground", "Change", "State of Grace"],
+                romantic: ["Love Story", "You Belong with Me", "Enchanted", "Mine"],
+                angry: ["Bad Blood", "Should've Said No", "Picture to Burn", "I Knew You Were Trouble"],
+                annoyed: ["Mean", "The Last Great American Dynasty", "Should've Said No", "Bad Blood"]
+                // Add more moods and songs as needed
+            };
+
+            // Background color based on mood
+            const backgroundColors = {
+                happy: "#ffd700",   // Gold
+                sad: "#87ceeb",     // Sky Blue
+                energetic: "#ff69b4", // Hot Pink
+                chill: "#c1e1c1",   // Pastel Green
+                reflective: "#ffc0cb", // Pink
+                excited: "#ffcc00",   // Yellow
+                romantic: "#ff99cc",   // Light Pink
+                angry: "#ff6347",     // Tomato
+                annoyed: "#f08080"    // Light Coral
+                // Add more colors as needed
+            };
+
+            // Simple logic for demonstration purposes
+            let recommendedSong = "";
+            let backgroundColor = "#fff";  // Default color
+
+            if (songs[selectedMood]) {
+                const randomIndex = Math.floor(Math.random() * songs[selectedMood].length);
+                recommendedSong = songs[selectedMood][randomIndex];
+
+                // Set background color based on mood
+                backgroundColor = backgroundColors[selectedMood];
+            } else {
+                recommendedSong = "You Belong with Me"; // Default song
+            }
+
+            // Update background color
+            document.body.style.backgroundColor = backgroundColor;
+
+            // Display the result
+            recommendedSongDiv.innerHTML = recommendedSong;
+            resultDiv.style.display = "block";
+
+            // Add mood and recommended song to the mood tracker
+            addMood(selectedMood, recommendedSong);
+            showRecommendedSongPopup(recommendedSong);
+        }
+
+        function getEmoji(mood) {
+            const emojis = {
+                happy: "😃",
+                sad: "😢",
+                energetic: "🚀",
+                chill: "😌",
+                reflective: "🤔",
+                excited: "😁",
+                romantic: "❤️",
+                angry: "😡",
+                annoyed: "😠"
+                // Add more moods and emojis as needed
+            };
+
+            return emojis[mood] || "🤷‍♂️"; // Default emoji
+        }
+    </script>
+
+</body>
+</html>

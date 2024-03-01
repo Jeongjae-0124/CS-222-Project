@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace - Messaging</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            animation: bg-gradient 10s infinite alternate;
+        }
+
+        @keyframes bg-gradient {
+            from {
+                background-position: 0% 0%;
+            }
+            to {
+                background-position: 100% 100%;
+            }
+        }
+
+        header {
+            background-color: #4285f4;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #message-container {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+            overflow-y: scroll;
+            max-height: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            animation: fade-in 0.8s ease-in-out, stagger-in 0.8s ease-in-out;
+        }
+
+        .message {
+            padding: 10px;
+            border-radius: 8px;
+            width: fit-content;
+            max-width: 80%;
+            animation: slide-in 0.3s ease-in-out, fade-in 0.5s ease-in-out;
+        }
+
+        .user-message {
+            background-color: #e0e0e0;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background-color: #4285f4;
+            color: #fff;
+            align-self: flex-start;
+        }
+
+        #message-input {
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            resize: none;
+            font-size: 16px;
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        #message-input:focus {
+            border-color: #4285f4;
+            box-shadow: 0 0 5px rgba(66, 133, 244, 0.5);
+        }
+
+        #send-button {
+            background-color: #4285f4;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            animation: pulse 1.5s infinite;
+        }
+
+        #send-button:hover {
+            background-color: #3a76c4;
+            transform: scale(1.05);
+        }
+
+        .typing-indicator {
+            margin-top: 10px;
+            font-style: italic;
+            color: #888;
+            opacity: 0;
+            animation: fade-in 0.5s ease-in-out;
+        }
+
+        @keyframes slide-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes stagger-in {
+            from {
+                transform: translateY(10px);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Marketplace Messaging</h1>
+    </header>
+
+    <main>
+        <div id="message-container"></div>
+        <div class="typing-indicator" id="typing-indicator">Bot is typing...</div>
+        <textarea id="message-input" placeholder="Type your message..."></textarea>
+        <button id="send-button">Send</button>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const messageContainer = document.getElementById('message-container');
+            const typingIndicator = document.getElementById('typing-indicator');
+            const messageInput = document.getElementById('message-input');
+            const sendButton = document.getElementById('send-button');
+
+            // Function to add a new message to the container
+            function addMessage(message, sender, delay = 0) {
+                setTimeout(() => {
+                    const messageElement = document.createElement('div');
+                    messageElement.textContent = message;
+                    messageElement.classList.add('message', sender === 'You' ? 'user-message' : 'bot-message');
+                    messageContainer.appendChild(messageElement);
+                    // Scroll to the bottom to show the latest message
+                    messageContainer.scrollTop = messageContainer.scrollHeight;
+                }, delay);
+            }
+
+            // Function to simulate received messages based on user input
+            function simulateReceivedMessage(userMessage) {
+                typingIndicator.style.opacity = '1';
+
+                // Simulate a delay before responding
+                setTimeout(() => {
+                    typingIndicator.style.opacity = '0';
+                    // Simple pattern-matching for responses
+                    const patterns = [
+                        { pattern: /hello|hi|hey/i, response: 'Hi there! How can I help you?' },
+                        { pattern: /how are you/i, response: 'I\'m just a simulation, but thanks for asking!' },
+                        { pattern: /bye|goodbye/i, response: 'Goodbye! Have a great day!' },
+                        { pattern: /thank you|thanks/i, response: 'You\'re welcome!' },
+                        { pattern: /product|buy|sell/i, response: 'This is a messaging demo. For actual product-related inquiries, please visit the product page.' },
+                        { pattern: /help|support/i, response: 'For support, please contact our customer service at support@example.com.' },
+                        // Add more patterns and responses as needed
+                    ];
+
+                    // Default response for unrecognized messages
+                    let response = 'I\'m not sure how to respond to that.';
+
+                    // Check user input against patterns
+                    for (const { pattern, response: patternResponse } of patterns) {
+                        if (pattern.test(userMessage)) {
+                            response = patternResponse;
+                            break;
+                        }
+                    }
+
+                    // Simulate a received message with the determined response
+                    addMessage(response, 'Bot');
+                }, 1500); // Simulate typing delay
+            }
+
+            // Event listener for the send button
+            function sendMessage() {
+                const messageText = messageInput.value.trim();
+                if (messageText !== '') {
+                    addMessage(messageText, 'You');
+                    // Simulate a received message based on user input after a short delay
+                    simulateReceivedMessage(messageText);
+                    // Clear the input field
+                    messageInput.value = '';
+                }
+            }
+
+            sendButton.addEventListener('click', sendMessage);
+
+            // Event listener for the "Enter" key in the input field
+            messageInput.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent the default behavior (line break)
+                    sendMessage();
+                }
+            });
+
+            // Initial greeting
+            addMessage('Hello! Type a message to start a conversation.', 'Bot');
+            // Fade in the message container after a short delay
+            setTimeout(() => {
+                messageContainer.style.opacity = '1';
+            }, 500);
+        });
+    </script>
+
+</body>
+</html>
