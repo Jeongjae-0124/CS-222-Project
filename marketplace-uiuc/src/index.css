@@ -86,3 +86,15 @@ body {
 .card:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+/* src/components/MainPage.css */
+.slick-prev,
+.slick-next {
+  font-size: 24px;
+  color: #007bff; /* Set your desired color */
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  color: #0056b3; /* Set your desired color on hover */
+}

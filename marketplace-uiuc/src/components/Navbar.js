@@ -19,12 +19,12 @@ const Navbar = () => {
           <Link className="nav-link" to="/profile">
             Profile
           </Link>
-          <Link className="nav-link" to="/messages">
-            Messages
-          </Link>
           <Link className="nav-link" to="/postings">
-            Postings
+            Offers
           </Link> 
+          <Link className="nav-link" to="/helppage">
+            Help
+          </Link>
         </Nav>
       </BootstrapNavbar.Collapse>
     </BootstrapNavbar>

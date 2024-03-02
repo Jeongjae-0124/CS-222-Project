@@ -1,0 +1,37 @@
+/* src/components/MainPage.css */
+
+/* Carousel Item Styling */
+.carousel-item {
+    cursor: pointer;
+    padding: 0 10px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  
+  /* Modal Styling */
+  .modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    width: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+  }
+  
+  .modal-header {
+    /* background-color: #007bff; */
+    color: rgb(0, 0, 0);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .modal-footer {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  
