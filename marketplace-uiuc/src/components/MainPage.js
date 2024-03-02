@@ -132,7 +132,7 @@ const MainPage = () => {
         <Slider {...settings}>
           {uniqueFilteredOffers.map((offer) => (
             <div key={offer.id} className="carousel-item">
-              <OfferCard offer={offer} onDetailsClick={handleDetailsClick} />
+              <OfferCard offer={offer} onDetailsClick={handleDetailsClick} showDetailsButton={false} />
             </div>
           ))}
         </Slider>
@@ -170,7 +170,6 @@ const MainPage = () => {
       )}
     </div>
   );
-
 };
 
 export default MainPage;

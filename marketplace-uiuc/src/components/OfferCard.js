@@ -1,8 +1,6 @@
-// src/components/OfferCard.js
 import React, { useState } from 'react';
-import './OfferCard.css'; // Import additional CSS for OfferCard styling
 
-const OfferCard = ({ offer }) => {
+const OfferCard = ({ offer, showDetailsButton = true }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleModalToggle = () => {
@@ -13,26 +11,14 @@ const OfferCard = ({ offer }) => {
     <div className="card shadow">
       <div className="card-body">
         <h5 className="card-title">{offer.title}</h5>
-        <p className="card-text">
-          {offer.description.length > 50 ? (
-            <>
-              {offer.description.slice(0, 50)}...
-              <br />
-              <small className="text-muted">Hover for details</small>
-            </>
-          ) : (
-            offer.description
-          )}
-        </p>
-        <p className="card-text">
-          <strong>Price:</strong> {offer.price}
-        </p>
-        <p className="card-text">
-          <strong>Contact:</strong> {offer.contact}
-        </p>
-        <button className="btn btn-primary" onClick={handleModalToggle}>
-          View Details
-        </button>
+        <p className="card-text">{offer.description}</p>
+        <p className="card-text">Price: {offer.price}</p>
+        <p className="card-text">Contact: {offer.contact}</p>
+        {showDetailsButton && (
+          <button className="btn btn-primary" onClick={handleModalToggle}>
+            View Details
+          </button>
+        )}
 
         {/* Offer Details Modal */}
         {showModal && (
