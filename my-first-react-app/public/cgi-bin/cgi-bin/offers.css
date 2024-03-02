@@ -1,0 +1,69 @@
+/* offers.css */
+
+/* Add a subtle background pattern to the offers section */
+#offers {
+    background-color: #f9f9f9;
+    background-image: linear-gradient(45deg, #f5f5f5 25%, transparent 25%, transparent 75%, #f5f5f5 75%, #f5f5f5),
+                      linear-gradient(45deg, #f5f5f5 25%, transparent 25%, transparent 75%, #f5f5f5 75%, #f5f5f5);
+    background-size: 60px 60px;
+}
+
+.offer {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.offer:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.offer h3 {
+    margin-bottom: 10px;
+    font-size: 1.8em;
+    color: #3498db;
+    transition: color 0.2s ease-in-out;
+}
+
+.offer:hover h3 {
+    color: #2980b9;
+}
+
+.offer p {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.offer button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.offer button:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+/* Animation for button hover effect */
+.offer button:hover::before {
+    content: '\2192'; /* Right arrow character */
+    margin-right: 8px;
+    opacity: 0;
+    transform: translateX(-5px);
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.offer button:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+}

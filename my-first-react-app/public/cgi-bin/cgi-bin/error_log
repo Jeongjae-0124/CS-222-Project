@@ -1,0 +1,35 @@
+ [27-Feb-2024 22:31:58 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect decimal value: '' for column `uiucmarketplace_data`.`offers`.`price` at row 1 in /home/uiucmarketplace/public_html/server.php:40
+Stack trace:
+#0 /home/uiucmarketplace/public_html/server.php(40): mysqli->query('INSERT INTO off...')
+#1 {main}
+  thrown in /home/uiucmarketplace/public_html/server.php on line 40
+[27-Feb-2024 22:32:02 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect decimal value: '' for column `uiucmarketplace_data`.`offers`.`price` at row 1 in /home/uiucmarketplace/public_html/server.php:40
+Stack trace:
+#0 /home/uiucmarketplace/public_html/server.php(40): mysqli->query('INSERT INTO off...')
+#1 {main}
+  thrown in /home/uiucmarketplace/public_html/server.php on line 40
+[27-Feb-2024 22:36:12 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect decimal value: '' for column `uiucmarketplace_data`.`offers`.`price` at row 1 in /home/uiucmarketplace/public_html/server.php:40
+Stack trace:
+#0 /home/uiucmarketplace/public_html/server.php(40): mysqli->query('INSERT INTO off...')
+#1 {main}
+  thrown in /home/uiucmarketplace/public_html/server.php on line 40
+[27-Feb-2024 22:36:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect decimal value: '' for column `uiucmarketplace_data`.`offers`.`price` at row 1 in /home/uiucmarketplace/public_html/server.php:40
+Stack trace:
+#0 /home/uiucmarketplace/public_html/server.php(40): mysqli->query('INSERT INTO off...')
+#1 {main}
+  thrown in /home/uiucmarketplace/public_html/server.php on line 40
+[27-Feb-2024 22:41:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect decimal value: '' for column `uiucmarketplace_data`.`offers`.`price` at row 1 in /home/uiucmarketplace/public_html/server.php:40
+Stack trace:
+#0 /home/uiucmarketplace/public_html/server.php(40): mysqli->query('INSERT INTO off...')
+#1 {main}
+  thrown in /home/uiucmarketplace/public_html/server.php on line 40
+[27-Feb-2024 22:52:25 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Out of range value for column 'price' at row 1 in /home/uiucmarketplace/public_html/server.php:40
+Stack trace:
+#0 /home/uiucmarketplace/public_html/server.php(40): mysqli->query('INSERT INTO off...')
+#1 {main}
+  thrown in /home/uiucmarketplace/public_html/server.php on line 40
+[01-Mar-2024 23:19:52 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect decimal value: '' for column `uiucmarketplace_data`.`offers`.`price` at row 1 in /home/uiucmarketplace/public_html/server.php:58
+Stack trace:
+#0 /home/uiucmarketplace/public_html/server.php(58): mysqli->query('INSERT INTO off...')
+#1 {main}
+  thrown in /home/uiucmarketplace/public_html/server.php on line 58

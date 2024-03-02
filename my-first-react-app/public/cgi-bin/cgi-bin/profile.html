@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - UIUC Marketplace</title>
+    <link rel="stylesheet" href="styles.css">
+    <!--<link rel="stylesheet" href="profile.css">-->
+    <style>
+        body {
+            margin: 0; /* Remove default margin to ensure full-width transitions */
+        }
+
+        #page-transition {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff; /* Set the background color */
+            z-index: 1000;
+            opacity: 0;
+            animation: pageTransition 1s ease-in-out forwards;
+        }
+
+        @keyframes pageTransition {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
+
+        #main {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        #main[data-transition="in-progress"] {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        nav a {
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        #main[data-transition="in-progress"] nav a {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>User Profile - UIUC Marketplace</h1>
+        <nav>
+            <ul>
+                <li><a onclick="applyPageTransition('index')">Home</a></li>
+                <li><a onclick="applyPageTransition('offers')">Offers</a></li>
+                <li><a onclick="applyPageTransition('profile')">Profile</a></li>
+                <li><a onclick="applyPageTransition('messages')">Messages</a></li>
+                <li><a onclick="applyPageTransition('help')">Help</a></li>
+                <li><a onclick="applyPageTransition('login');">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main" data-transition="idle">
+        <section id="user-profile">
+            <h2>User Profile</h2>
+            <div class="user-profile">
+                <img src="User-avatar.png" alt="User Avatar">
+                <h3>Username</h3>
+                <p>Email: user@example.com</p>
+                <p>Description: Lorem ipsum dolor sit amet...</p>
+                <p>Interests: <span id="user-interests">No interests yet.</span></p>
+                <button onclick="editProfile()">Edit Profile</button>
+
+                <div id="edit-profile-form" style="display: none;">
+                    <h4>Edit Profile</h4>
+                    <form id="profile-form">
+                        <label for="new-description">New Description:</label>
+                        <textarea id="new-description" name="new-description" rows="4" cols="50"></textarea>
+                        <br>
+                        <label for="new-email">New Email:</label>
+                        <input type="email" id="new-email" name="new-email">
+                        <br>
+                        <label for="new-interests">Add Interests (comma-separated):</label>
+                        <input type="text" id="new-interests" name="new-interests">
+                        <br>
+                        <label for="new-password">New Password:</label>
+                        <input type="password" id="new-password" name="new-password">
+                        <br>
+                        <button type="button" onclick="saveChanges()">Save Changes</button>
+                    </form>
+                </div>
+
+                <div class="additional-features">
+                    <h4>Password Management</h4>
+                    <button onclick="changePassword()">Change Password</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 UIUC Marketplace</p>
+    </footer>
+
+    <script src="app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+<script>
+    function exploreOffers() {
+        // Add logic to navigate to the offers page or any exploration functionality
+        applyPageTransition('offers');
+    }
+
+    function navigateToPage(page) {
+        // Apply a transition effect by updating the transform property
+        document.getElementById('main').style.transform = 'translateX(0)';
+        document.getElementById('main').dataset.transition = 'in-progress';
+
+        // Apply a transition effect for the navbar links
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.style.transition = 'opacity 0.5s';
+            link.style.opacity = 0;
+        });
+
+        // Add a slight delay to allow the transition to take effect before navigating
+        setTimeout(function () {
+            window.location.href = page;
+        }, 500);
+    }
+
+    function applyPageTransition(targetPage) {
+        document.getElementById('main').dataset.transition = 'in-progress';
+
+        // Apply a fade-out transition effect for the main content
+        document.getElementById('main').style.opacity = 0;
+
+        // Apply a fade-out transition effect for the navbar links
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.style.transition = 'opacity 0.5s';
+            link.style.opacity = 0;
+        });
+
+        // Add a slight delay to allow the transition to take effect before navigating
+        setTimeout(function () {
+            window.location.href = targetPage + '.html';
+        }, 500);
+    }
+
+    function registerUser(event) {
+        event.preventDefault();
+        // Add logic to handle user registration, send data to the server, etc.
+        alert('User registration functionality coming soon!');
+    }
+</script>
+</body>
+
+</html>

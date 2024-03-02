@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Marketplace @ Urbana-Champaign</title>
+	<link href="styles.css" rel="stylesheet" /><!-- Include your CSS file -->
+	<style type="text/css">body {
+            margin: 0; /* Remove default margin to ensure full-width transitions */
+        }
+
+        #page-transition {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff; /* Set the background color */
+            z-index: 1000;
+            opacity: 0;
+            animation: pageTransition 1s ease-in-out forwards;
+        }
+
+        @keyframes pageTransition {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
+
+        #main {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        #main[data-transition="in-progress"] {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        nav a {
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        #main[data-transition="in-progress"] nav a {
+            opacity: 0;
+        }
+	</style>
+</head>
+<body>
+<header>
+<h1><span style="font-family:Tahoma,Geneva,sans-serif;">Welcome to the UIUC Marketplace</span></h1>
+
+<nav>
+<ul>
+	<li><span style="font-family:Tahoma,Geneva,sans-serif;"><a onclick="applyPageTransition('index')">Home</a></span></li>
+	<li><span style="font-family:Tahoma,Geneva,sans-serif;"><a onclick="applyPageTransition('offers')">Offers</a></span></li>
+	<li><span style="font-family:Tahoma,Geneva,sans-serif;"><a onclick="applyPageTransition('profile')">Profile</a></span></li>
+	<li><span style="font-family:Tahoma,Geneva,sans-serif;"><a onclick="applyPageTransition('messages')">Messages</a></span></li>
+	<li><span style="font-family:Tahoma,Geneva,sans-serif;"><a onclick="applyPageTransition('help')">Help</a></span></li>
+	<li><span style="font-family:Tahoma,Geneva,sans-serif;"><a onclick="applyPageTransition('login'); return true;">Login</a></span></li>
+</ul>
+</nav>
+</header>
+
+<main data-transition="idle" id="main"><!-- Hero Section -->
+<section id="hero">
+<h2><span style="font-family:Tahoma,Geneva,sans-serif;">Discover and Sell Items Locally</span></h2>
+
+<p><span style="font-family:Tahoma,Geneva,sans-serif;">Find great deals from your local community.</span></p>
+<span style="font-family:Tahoma,Geneva,sans-serif;"><button onclick="applyPageTransition('offers')">Explore Offers</button></span></section>
+<!-- User Registration Section --><!--<section id="user-registration">--><!--    <h2>Join Us Today!</h2>--><!--    <form id="registration-form" onsubmit="registerUser(event)">--><!--        <label for="username">Username:</label>--><!--        <input type="text" id="username" name="username" required>--><!--        <label for="email">Email:</label>--><!--        <input type="email" id="email" name="email" required>--><!--        <label for="password">Password:</label>--><!--        <input type="password" id="password" name="password" required>--><!--        <button type="submit">Register</button>--><!--    </form>--><!--</section>--><!-- How It Works Section -->
+
+<section data-page="how-it-works" id="how-it-works">
+<h2><span style="font-family:Tahoma,Geneva,sans-serif;">How It Works</span></h2>
+
+<div class="step">
+<h3><span style="font-family:Tahoma,Geneva,sans-serif;">1. Explore Offers</span></h3>
+
+<p><span style="font-family:Tahoma,Geneva,sans-serif;">Browse through a variety of items available for sale in your area.</span></p>
+</div>
+
+<div class="step">
+<h3><span style="font-family:Tahoma,Geneva,sans-serif;">2. Connect with Sellers</span></h3>
+
+<p><span style="font-family:Tahoma,Geneva,sans-serif;">Contact sellers directly to inquire about products or make a purchase.</span></p>
+</div>
+
+<div class="step">
+<h3><span style="font-family:Tahoma,Geneva,sans-serif;">3. Sell Your Items</span></h3>
+
+<p><span style="font-family:Tahoma,Geneva,sans-serif;">Post your own items for sale and connect with potential buyers.</span></p>
+</div>
+</section>
+<!-- Testimonials Section -->
+
+<section data-page="testimonials" id="testimonials">
+<h2><span style="font-family:Tahoma,Geneva,sans-serif;">What Users Are Saying</span></h2>
+
+<div class="testimonial">
+<p><span style="font-family:Tahoma,Geneva,sans-serif;">&quot;Found the perfect laptop at a great price! Thanks, UIUC Marketplace!&quot;</span></p>
+<span style="font-family:Tahoma,Geneva,sans-serif;">- Happy Buyer</span></div>
+
+<div class="testimonial">
+<p><span style="font-family:Tahoma,Geneva,sans-serif;">&quot;Selling my furniture was a breeze with UIUC Marketplace. Highly recommended!&quot;</span></p>
+<span style="font-family:Tahoma,Geneva,sans-serif;">- Satisfied Seller</span></div>
+</section>
+</main>
+
+<footer>
+<p><span style="font-family:Tahoma,Geneva,sans-serif;">&copy; 2024 UIUC Marketplace</span></p>
+</footer>
+<script src="app.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script><script>
+    function exploreOffers() {
+        // Add logic to navigate to the offers page or any exploration functionality
+        applyPageTransition('offers');
+    }
+
+    function navigateToPage(page) {
+        // Apply a transition effect by updating the transform property
+        document.getElementById('main').style.transform = 'translateX(0)';
+        document.getElementById('main').dataset.transition = 'in-progress';
+
+        // Apply a transition effect for the navbar links
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.style.transition = 'opacity 0.5s';
+            link.style.opacity = 0;
+        });
+
+        // Add a slight delay to allow the transition to take effect before navigating
+        setTimeout(function () {
+            window.location.href = page;
+        }, 500);
+    }
+
+    function applyPageTransition(targetPage) {
+        document.getElementById('main').dataset.transition = 'in-progress';
+
+        // Apply a fade-out transition effect for the main content
+        document.getElementById('main').style.opacity = 0;
+
+        // Apply a fade-out transition effect for the navbar links
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.style.transition = 'opacity 0.5s';
+            link.style.opacity = 0;
+        });
+
+        // Add a slight delay to allow the transition to take effect before navigating
+        setTimeout(function () {
+            window.location.href = targetPage + '.html';
+        }, 500);
+    }
+
+    function registerUser(event) {
+        event.preventDefault();
+        // Add logic to handle user registration, send data to the server, etc.
+        alert('User registration functionality coming soon!');
+    }
+</script></body>
+</html>

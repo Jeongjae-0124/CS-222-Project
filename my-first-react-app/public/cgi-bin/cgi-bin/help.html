@@ -1,0 +1,186 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace @ Urbana-Champaign - Help</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Include your CSS file -->
+    <link rel="stylesheet" href="help.css"> <!-- Include the new help CSS file --><style>
+        body {
+            margin: 0; /* Remove default margin to ensure full-width transitions */
+        }
+
+        #page-transition {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff; /* Set the background color */
+            z-index: 1000;
+            opacity: 0;
+            animation: pageTransition 1s ease-in-out forwards;
+        }
+
+        @keyframes pageTransition {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
+
+        #main {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        #main[data-transition="in-progress"] {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        nav a {
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        #main[data-transition="in-progress"] nav a {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to the UIUC Marketplace</h1>
+        <nav>
+            <ul>
+                <li><a onclick="applyPageTransition('index')">Home</a></li>
+                <li><a onclick="applyPageTransition('offers')">Offers</a></li>
+                <li><a onclick="applyPageTransition('profile')">Profile</a></li>
+                <li><a onclick="applyPageTransition('messages')">Messages</a></li>
+                <li><a onclick="applyPageTransition('help')">Help</a></li>
+                <li><a onclick="applyPageTransition('login'); return true;">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main" data-transition="idle">
+        <section id="faq" class="centered-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <!-- FAQ items -->
+            <div class="faq-item" onclick="toggleAnswer('faq1')">
+                <h3>How do I create an account?</h3>
+                <div id="faq1" class="faq-answer">
+                    <p>Creating an account is easy. Simply click on the 'Login' button in the navigation bar and choose the 'Sign Up' option. Fill in the required information and you're all set!</p>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleAnswer('faq2')">
+                <h3>Can I edit my posted offers?</h3>
+                <div id="faq2" class="faq-answer">
+                    <p>Yes, you can edit your posted offers. Go to your profile and find the offer you want to edit. Click on the 'Edit' option, make the changes, and save them.</p>
+                </div>
+            </div>
+
+            <!-- Additional FAQ items -->
+            <div class="faq-item" onclick="toggleAnswer('faq3')">
+                <h3>How do I post a new offer?</h3>
+                <div id="faq3" class="faq-answer">
+                    <p>To post a new offer, navigate to the "Offers" page and use the "Add a New Offer" section.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleAnswer('faq4')">
+                <h3>Is there a rating system for users?</h3>
+                <div id="faq4" class="faq-answer">
+                    <p>Yes, users can rate and leave feedback for each other after completing a transaction.</p>
+                </div>
+            </div>
+
+            <!-- Chatbot section -->
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-item bot-message">Welcome! How can I assist you today?</div>
+            </div>
+
+            <div id="userInputContainer">
+                <input type="text" id="searchInput" placeholder="Ask me anything...">
+                <button onclick="askBot()">Send</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 UIUC Marketplace</p>
+    </footer>
+
+    <script src="app.js"></script> <!-- Include your JavaScript file -->
+
+    <script src="help.js"></script> <!-- Include the new help JavaScript file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
+<script>
+    function exploreOffers() {
+        // Add logic to navigate to the offers page or any exploration functionality
+        applyPageTransition('offers');
+    }
+
+    function navigateToPage(page) {
+        // Apply a transition effect by updating the transform property
+        document.getElementById('main').style.transform = 'translateX(0)';
+        document.getElementById('main').dataset.transition = 'in-progress';
+
+        // Apply a transition effect for the navbar links
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.style.transition = 'opacity 0.5s';
+            link.style.opacity = 0;
+        });
+
+        // Add a slight delay to allow the transition to take effect before navigating
+        setTimeout(function () {
+            window.location.href = page;
+        }, 500);
+    }
+
+    function applyPageTransition(targetPage) {
+        document.getElementById('main').dataset.transition = 'in-progress';
+
+        // Apply a fade-out transition effect for the main content
+        document.getElementById('main').style.opacity = 0;
+
+        // Apply a fade-out transition effect for the navbar links
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.style.transition = 'opacity 0.5s';
+            link.style.opacity = 0;
+        });
+
+        // Add a slight delay to allow the transition to take effect before navigating
+        setTimeout(function () {
+            window.location.href = targetPage + '.html';
+        }, 500);
+    }
+
+    function registerUser(event) {
+        event.preventDefault();
+        // Add logic to handle user registration, send data to the server, etc.
+        alert('User registration functionality coming soon!');
+    }
+</script>
+</body>
+
+</html>
