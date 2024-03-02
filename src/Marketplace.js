@@ -47,10 +47,7 @@ const Marketplace = () => {
         <nav>
           <ul>
             <li><a onClick={() => navigateToPage('index')}>Home</a></li>
-            <li><a onClick={() => navigateToPage('index')}>Offers</a></li>
-            <li><a onClick={() => navigateToPage('index')}>Profile</a></li>
-            <li><a onClick={() => navigateToPage('index')}>Messages</a></li>
-            <li><a onClick={() => navigateToPage('index')}>Help</a></li>
+            <li><a onClick={() => navigateToPage('index')}>Offers</a></li> 
             <li><a onClick={() => applyPageTransition('index')}>Login</a></li>
           </ul>
         </nav>
@@ -70,11 +67,6 @@ const Marketplace = () => {
           {/* Steps go here */}
         </section>
 
-        {/* Testimonials Section */}
-        <section data-page="testimonials" id="testimonials">
-          <h2>What Users Are Saying</h2>
-          {/* Testimonials go here */}
-        </section>
       </main>
 
       <footer>
