@@ -1,0 +1,427 @@
+<!-- offers.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace @ Urbana-Champaign - Offers</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Include your main CSS file -->
+    <link rel="stylesheet" href="offers.css"> <!-- Include the offers-specific CSS file --><style>
+        body {
+            margin: 0; /* Remove default margin to ensure full-width transitions */
+        }
+
+        #page-transition {function postOffer() {
+    // Get form values
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+    const price = document.getElementById('price').value;
+    const contact = document.getElementById('contact').value;
+
+    // Send offer data to the server
+    fetch('/path/to/server.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, description, price, contact }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if (data.success) {
+            alert('Offer posted successfully!');
+            addToOffersContainer(title, description, price, contact);
+            // Add any additional logic as needed
+        } else {
+            alert('Error posting offer. Please try again.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error posting offer. Please try again.');
+    });
+
+    // Clear form fields
+    document.getElementById('post-form').reset();
+}
+
+function addToOffersContainer(title, description, price, contact) {
+    // Create a new offer element
+    const newOffer = document.createElement('div');
+    newOffer.classList.add('offer');
+
+    // Fill in offer details
+    newOffer.innerHTML = `
+        <h3>${title}</h3>
+        <p>Description: ${description}</p>
+        <p>Price: $${price}</p>
+        <p>Contact: ${contact}</p>
+        <button onclick="addToCart()">Add to Cart</button>
+    `;
+
+    // Append new offer to the offers container
+    const offersContainer = document.getElementById('offers-container');
+    offersContainer.appendChild(newOffer);
+}
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff; /* Set the background color */
+            z-index: 1000;
+            opacity: 0;
+            animation: pageTransition 1s ease-in-out forwards;
+        }
+
+        @keyframes pageTransition {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
+
+        #main {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        #main[data-transition="in-progress"] {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        nav a {
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        #main[data-transition="in-progress"] nav a {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to the UIUC Marketplace</h1>
+        <!-- Navigation bar goes here -->
+        <nav>
+            <ul>
+                <li><a onclick="applyPageTransition('index')">Home</a></li>
+                <li><a onclick="applyPageTransition('offers')">Offers</a></li>
+                <li><a onclick="applyPageTransition('profile')">Profile</a></li>
+                <li><a onclick="applyPageTransition('messages')">Messages</a></li>
+                <li><a onclick="applyPageTransition('help')">Help</a></li>
+                <li><a onclick="applyPageTransition('login'); return true;">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+<main id="main" data-transition="idle">
+    <section id="add-post" class="centered-section">
+        <h2>Add a New Offer</h2>
+        <form id="post-form">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" required>
+
+            <label for="contact">Contact:</label>
+            <input type="text" id="contact" name="contact" required>
+
+            <button type="button" onclick="postOffer()">Post Offer</button>
+        </form>
+    </section>
+
+    <section id="offers" class="centered-section">
+        <h2>Available Offers</h2>
+        <div id="offers-container"></div>
+    </section>
+</main>
+
+
+    <footer>
+        <p>&copy; 2024 UIUC Marketplace</p>
+    </footer>
+
+    <script src="app.js"></script> <!-- Include your main JavaScript file -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script src="index.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Fetch and display all offers when the page loads
+        fetchAndDisplayAllOffers();
+    });
+
+    function postOffer() {
+        // Get form values
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const price = document.getElementById('price').value;
+        const contact = document.getElementById('contact').value;
+
+        // Send offer data to the server
+        fetch('server.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                offer: { title, description, price, contact }
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.success) {
+                alert('Offer posted successfully!');
+                fetchAndDisplayAllOffers(); // Fetch and display all offers after posting
+            } else {
+                alert('Error posting offer. Please try again.');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error posting offer. Please try again.');
+        });
+
+        // Clear form fields
+        document.getElementById('post-form').reset();
+    }
+
+    function addToOffersContainer(title, description, price, contact, offerId) {
+        // Create a new offer element
+        const newOffer = document.createElement('div');
+        newOffer.classList.add('offer');
+
+        // Fill in offer details
+        newOffer.innerHTML = `
+            <h3>${title}</h3>
+            <p>Description: ${description}</p>
+            <p>Price: $${price}</p>
+            <p>Contact: ${contact}</p>
+            <button onclick="editEntry(${offerId})">Edit Entry</button>
+            <button onclick="deleteOffer(${offerId})">Delete</button>
+        `;
+
+        // Append new offer to the offers container
+        const offersContainer = document.getElementById('offers-container');
+        offersContainer.appendChild(newOffer);
+    }
+
+    function editEntry(offerId) {
+        // Add logic for editing the entry
+        alert('Edit entry functionality coming soon!');
+    }
+
+    function deleteOffer(offerId) {
+        // Send a request to the server to delete the offer with the given ID
+        fetch('server.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                deleteOffer: { id: offerId }
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.success) {
+                alert('Offer deleted successfully!');
+                // Fetch and display all offers after deleting
+                fetchAndDisplayAllOffers();
+                location.reload();
+            } else {
+                alert('Error deleting offer. Please try again.');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error deleting offer. Please try again.');
+        });
+    }
+
+    function addToCart() {
+        // Add logic for adding to the shopping cart
+        alert('Item added to cart!');
+    }
+
+    function fetchAndDisplayAllOffers() {
+        // Fetch all offers from the server
+        fetch('server.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    displayAllOffers(data.offers); // Pass the offers array to the display function
+                } else {
+                    console.error('Error fetching offers:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching offers:', error);
+            });
+    }
+
+    function displayAllOffers(offers) {
+        const offersContainer = document.getElementById('offers-container');
+        offersContainer.innerHTML = ''; // Clear existing offers
+
+        // Loop through each offer and create HTML elements
+        offers.forEach(offer => {
+            const newOffer = document.createElement('div');
+            newOffer.classList.add('offer');
+            newOffer.innerHTML = `
+                <h3>${offer.title}</h3>
+                <p>Description: ${offer.description}</p>
+                <p>Price: $${offer.price}</p>
+                <p>Contact: ${offer.contact}</p>
+                <button onclick="editEntry(${offer.id})">Edit Entry</button>
+                <button onclick="deleteOffer(${offer.id})">Delete</button>
+            `;
+            offersContainer.appendChild(newOffer);
+        });
+    }
+    function editOffer(offerId) {
+        // Fetch the offer details from the server based on the offerId
+        fetch('server.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                getOffer: { id: offerId }
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const offer = data.offer;
+                // Populate the form fields with the offer details for editing
+                document.getElementById('edit-title').value = offer.title;
+                document.getElementById('edit-description').value = offer.description;
+                document.getElementById('edit-price').value = offer.price;
+                document.getElementById('edit-contact').value = offer.contact;
+
+                // Show the edit form
+                document.getElementById('edit-form').style.display = 'block';
+
+                // Set a hidden input field to store the offerId being edited
+                document.getElementById('edit-offer-id').value = offerId;
+            } else {
+                console.error('Error fetching offer details:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching offer details:', error);
+        });
+    }
+
+    function updateOffer() {
+        // Get edited offer details from the form
+        const offerId = document.getElementById('edit-offer-id').value;
+        const title = document.getElementById('edit-title').value;
+        const description = document.getElementById('edit-description').value;
+        const price = document.getElementById('edit-price').value;
+        const contact = document.getElementById('edit-contact').value;
+
+        // Send the updated offer data to the server
+        fetch('server.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                offer: { id: offerId, title, description, price, contact }
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Offer updated successfully!');
+                // Fetch and display all offers after updating
+                fetchAndDisplayAllOffers();
+                // Hide the edit form
+                document.getElementById('edit-form').style.display = 'none';
+            } else {
+                alert('Error updating offer. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error updating offer:', error);
+            alert('Error updating offer. Please try again.');
+        });
+    }
+</script>
+
+
+<script>
+    function exploreOffers() {
+        // Add logic to navigate to the offers page or any exploration functionality
+        applyPageTransition('offers');
+    }
+
+    function navigateToPage(page) {
+        // Apply a transition effect by updating the transform property
+        document.getElementById('main').style.transform = 'translateX(0)';
+        document.getElementById('main').dataset.transition = 'in-progress';
+
+        // Apply a transition effect for the navbar links
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.style.transition = 'opacity 0.5s';
+            link.style.opacity = 0;
+        });
+
+        // Add a slight delay to allow the transition to take effect before navigating
+        setTimeout(function () {
+            window.location.href = page;
+        }, 500);
+    }
+
+    function applyPageTransition(targetPage) {
+        document.getElementById('main').dataset.transition = 'in-progress';
+
+        // Apply a fade-out transition effect for the main content
+        document.getElementById('main').style.opacity = 0;
+
+        // Apply a fade-out transition effect for the navbar links
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.style.transition = 'opacity 0.5s';
+            link.style.opacity = 0;
+        });
+
+        // Add a slight delay to allow the transition to take effect before navigating
+        setTimeout(function () {
+            window.location.href = targetPage + '.html';
+        }, 500);
+    }
+    
+    function registerUser(event) {
+        event.preventDefault();
+        // Add logic to handle user registration, send data to the server, etc.
+        alert('User registration functionality coming soon!');
+    }
+</script>
+</body>
+
+</html>
