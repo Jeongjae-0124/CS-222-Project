@@ -85,6 +85,8 @@ const MainPage = () => {
     offer.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const uniqueFilteredOffers = [...new Set(filteredOffers)]; // Remove duplicates
+
   const settings = {
     dots: true,
     infinite: true,
@@ -126,16 +128,18 @@ const MainPage = () => {
 
       <h2 className="text-center mb-4">Featured Offers</h2>
 
-      {/* Draggable Carousel */}
-      <Slider {...settings}>
-        {filteredOffers.map((offer) => (
-          <div key={offer.id} className="carousel-item">
-            <OfferCard offer={offer} onDetailsClick={handleDetailsClick} />
-          </div>
-        ))}
-      </Slider>
+      {uniqueFilteredOffers.length > 0 ? (
+        <Slider {...settings}>
+          {uniqueFilteredOffers.map((offer) => (
+            <div key={offer.id} className="carousel-item">
+              <OfferCard offer={offer} onDetailsClick={handleDetailsClick} />
+            </div>
+          ))}
+        </Slider>
+      ) : (
+        <p className="text-center">No matching offers found.</p>
+      )}
 
-      {/* Offer Details Modal */}
       {selectedOffer && (
         <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block' }} onClick={handleCloseModal}>
           <div className="modal-dialog" role="document" onClick={(e) => e.stopPropagation()}>
@@ -166,6 +170,7 @@ const MainPage = () => {
       )}
     </div>
   );
+
 };
 
 export default MainPage;

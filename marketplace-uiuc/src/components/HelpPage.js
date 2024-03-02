@@ -1,18 +1,18 @@
 // src/components/HelpPage.js
-import React from 'react';
+import React from 'react'; 
 
 const HelpPage = () => {
   return (
     <div className="container mt-4">
-      <div className="jumbotron bg-light">
-        <h2 className="display-4">Help Page</h2>
-        <p className="lead">
+      <div className="jumbotron bg-light help-jumbotron shadow">
+        <h2 className="display-4 text-center mb-4">Help Page</h2>
+        <p className="lead text-center">
           Welcome to the Help Page! If you have any questions or need assistance,
           feel free to reach out.
         </p>
 
         <section className="faq-section">
-          <h4>Frequently Asked Questions</h4>
+          <h4 className="text-center mb-3">Frequently Asked Questions</h4>
           <ol>
             <li>
               <strong>How do I create a new posting?</strong>
@@ -43,8 +43,8 @@ const HelpPage = () => {
         </section>
 
         <section className="contact-section mt-4">
-          <h4>Contact Support</h4>
-          <p>
+          <h4 className="text-center mb-3">Contact Support</h4>
+          <p className="text-center">
             If you still have questions or need further assistance, please contact
             our support team at{' '}
             <a href="mailto:support@example.com">support@example.com</a>.
