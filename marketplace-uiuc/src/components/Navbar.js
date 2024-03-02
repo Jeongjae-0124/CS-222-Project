@@ -6,7 +6,7 @@ import '../index.css'; // Import the custom styles
 
 const Navbar = () => {
   return (
-    <BootstrapNavbar className="navbar-custom" expand="lg">
+    <BootstrapNavbar className="navbar-custom fixed-top" expand="lg">
       <Link className="navbar-brand" to="/">
         marketplace@uiuc
       </Link>
@@ -19,12 +19,12 @@ const Navbar = () => {
           <Link className="nav-link" to="/profile">
             Profile
           </Link>
-          <Link className="nav-link" to="/messages">
-            Messages
-          </Link>
           <Link className="nav-link" to="/postings">
-            Postings
+            Offers
           </Link> 
+          <Link className="nav-link" to="/helppage">
+            Help
+          </Link>
         </Nav>
       </BootstrapNavbar.Collapse>
     </BootstrapNavbar>

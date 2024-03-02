@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import MainPage from './components/MainPage';
 import Profile from './components/Profile';
-import Messages from './components/Messages';
+import HelpPage from './components/HelpPage';  // Import HelpPage component
 import Postings from './components/Postings';
 import Threads from './components/Threads';
 
@@ -15,7 +15,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/messages" element={<Messages />} />
+        <Route path="/helppage" element={<HelpPage />} />  {/* Use HelpPage component here */}
         <Route path="/postings" element={<Postings />} />
         <Route path="/threads" element={<Threads />} />
       </Routes>

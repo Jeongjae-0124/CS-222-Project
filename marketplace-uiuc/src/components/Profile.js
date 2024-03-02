@@ -61,14 +61,16 @@ const Profile = () => {
         {user ? (
           <div>
             <h2 className="display-4">Welcome, {user.name}!</h2>
-            <p className="lead">Email: {user.email}</p>
-            <button className="btn btn-danger" onClick={handleLogout}>
+            <p className="lead">
+      You are currently signed in as {user.email}. Enjoy your time exploring the marketplace :)
+    </p><button className="btn btn-danger" onClick={handleLogout}>
               Logout
             </button>
           </div>
         ) : (
-          <div>
+            <div>
             <h2 className="display-4">Login to Marketplace @ UIUC</h2>
+            <p className="lead">Sign in using your Microsoft UIUC account.</p>
             {error && <p className="text-danger">{error}</p>}
             <button
               className="btn btn-primary mt-3"
