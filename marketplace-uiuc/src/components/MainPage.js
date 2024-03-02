@@ -1,7 +1,6 @@
 // src/components/MainPage.js
 import React, { useState } from 'react';
 import OfferCard from './OfferCard';
-import NewOfferForm from './NewOfferForm';
 
 const MainPage = () => {
   const [offers, setOffers] = useState([
@@ -15,19 +14,20 @@ const MainPage = () => {
     // Add more offers as needed
   ]);
 
-  const handleNewOfferSubmit = (newOffer) => {
-    setOffers([...offers, { id: offers.length + 1, ...newOffer }]);
-  };
-
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">Welcome to Marketplace @ Urbana-Champaign</h2>
+      <div className="jumbotron bg-light text-dark rounded shadow">
+        <h1 className="display-4 text-center mb-4">Welcome to Marketplace @ Urbana-Champaign</h1>
+        <p className="lead text-center">
+          Explore and discover a variety of items and services offered within the university community.
+        </p>
+      </div>
 
-      <NewOfferForm onSubmit={handleNewOfferSubmit} />
+      <h2 className="text-center mb-4">Featured Offers</h2>
 
-      <div className="row mt-4">
+      <div className="row justify-content-center">
         {offers.map((offer) => (
-          <div key={offer.id} className="col-md-4 mb-4">
+          <div key={offer.id} className="col-lg-4 col-md-6 mb-4">
             <OfferCard offer={offer} />
           </div>
         ))}

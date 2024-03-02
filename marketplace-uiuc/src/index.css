@@ -1,13 +1,88 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* src/index.css */
+
+/* Navbar Styling */
+.navbar-custom {
+  background-color: #ffbe78; /* Dark background color */
+  padding: 10px 20px; /* Padding on top and bottom */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.navbar-custom .navbar-brand {
+  color: #fff; /* White brand text color */
+  font-weight: bold;
+  font-size: 1.5rem; /* Increase font size for the brand */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.3s ease; /* Smooth color transition on hover */
+  margin-right: 20px; /* Spacing to the right */
+  margin-left: 20px; /* Spacing to the left */
+}
+
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-brand.active {
+  color: #8a8a8a; /* Hover and active color for the brand text */
+}
+
+.navbar-custom .navbar-toggler {
+  border: none;
+}
+
+.navbar-custom .navbar-toggler-icon {
+  background-color: #fff; /* White navbar toggle icon color */
+}
+
+.navbar-custom .navbar-nav {
+  margin-left: auto; /* Align items to the right */
+}
+
+.navbar-custom .navbar-nav .nav-item {
+  margin-right: 15px; /* Space between links */
+}
+
+.navbar-custom .navbar-nav .nav-link {
+  color: #ffffff; /* Light gray navbar link text color */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.3s ease; /* Smooth color transition on hover */
+  margin-right: 15px; /* Spacing to the right */
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+  color: #414141; /* Hover color for the link text */
+}
+
+/* Remove top padding to allow full use of the viewport */
+body {
+  padding-top: 0;
+}
+  
+
+
+/* MAIN PAGE */
+
+/* src/index.css */
+
+/* Additional MainPage Styling */
+.jumbotron {
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.display-4 {
+  font-weight: bold;
+}
+
+/* Featured Offers Styling */
+.row {
+  justify-content: center;
+}
+
+/* OfferCard Styling (if needed) */
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
