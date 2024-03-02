@@ -1,7 +1,7 @@
-// src/components/Postings.js
 import React, { useState } from 'react';
-import OfferCard from './OfferCard';
+import { MsalAuthenticationTemplate, useMsal } from '@azure/msal-react';
 import NewOfferForm from './NewOfferForm';
+import OfferCard from './OfferCard';
 
 const Postings = () => {
   const [postings, setPostings] = useState([
@@ -22,8 +22,22 @@ const Postings = () => {
     // Add more postings as needed
   ]);
 
+  const { accounts } = useMsal();
+  const isLoggedIn = accounts.length > 0;
+
   const handleNewPostingSubmit = (newPosting) => {
-    setPostings([...postings, { id: postings.length + 1, ...newPosting }]);
+    const currentUser = accounts[0];
+
+    const updatedPostings = [
+      ...postings,
+      {
+        id: postings.length + 1,
+        ...newPosting,
+        contact: isLoggedIn ? currentUser.username : 'Anonymous',
+      },
+    ];
+
+    setPostings(updatedPostings);
   };
 
   return (
@@ -33,7 +47,7 @@ const Postings = () => {
         <p className="lead">Explore items and services for sale within the marketplace.</p>
       </div>
 
-      <NewOfferForm onSubmit={handleNewPostingSubmit} />
+      {isLoggedIn && <NewOfferForm onSubmit={handleNewPostingSubmit} />}
 
       <div className="row mt-4">
         {postings.map((posting) => (

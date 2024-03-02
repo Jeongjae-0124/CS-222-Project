@@ -1,16 +1,18 @@
 // src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { PublicClientApplication } from '@azure/msal-browser'; // Correct import
+import { MsalProvider } from '@azure/msal-react';
+import { msalConfig } from './msalConfig.js';
+import App from './App';
 import './index.css'; // Add this line
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// src/index.js or src/index.jsx
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import App from './App';
+const msalInstance = new PublicClientApplication(msalConfig);
 
 ReactDOM.render(
-  <React.StrictMode>
+  <MsalProvider instance={msalInstance}>
     <App />
-  </React.StrictMode>,
+  </MsalProvider>,
   document.getElementById('root')
 );

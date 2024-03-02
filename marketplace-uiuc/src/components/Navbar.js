@@ -13,6 +13,9 @@ const Navbar = () => {
       <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
       <BootstrapNavbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
+          <Link className="nav-link" to="/">
+            Home
+          </Link>
           <Link className="nav-link" to="/profile">
             Profile
           </Link>
@@ -21,10 +24,7 @@ const Navbar = () => {
           </Link>
           <Link className="nav-link" to="/postings">
             Postings
-          </Link>
-          <Link className="nav-link" to="/threads">
-            Threads
-          </Link>
+          </Link> 
         </Nav>
       </BootstrapNavbar.Collapse>
     </BootstrapNavbar>

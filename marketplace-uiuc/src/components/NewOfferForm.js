@@ -1,20 +1,28 @@
 // src/components/NewOfferForm.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useMsal } from '@azure/msal-react';
 
 const NewOfferForm = ({ onSubmit }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
-  const [contact, setContact] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const { accounts } = useMsal();
+
+  useEffect(() => {
+    // Set user's email if logged in
+    if (accounts.length > 0) {
+      setUserEmail(accounts[0].username);
+    }
+  }, [accounts]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ title, description, price, contact });
+    onSubmit({ title, description, price, contact: userEmail });
     // Reset form fields after submission
     setTitle('');
     setDescription('');
     setPrice('');
-    setContact('');
   };
 
   return (
@@ -51,17 +59,6 @@ const NewOfferForm = ({ onSubmit }) => {
               id="price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="contact">Contact Information</label>
-            <input
-              type="text"
-              className="form-control"
-              id="contact"
-              value={contact}
-              onChange={(e) => setContact(e.target.value)}
               required
             />
           </div>
