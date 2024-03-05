@@ -28,9 +28,15 @@
 }
 
 .navbar-custom .navbar-toggler-icon {
-  background-color: #fff; /* White navbar toggle icon color */
+  background-color: #ffffff; /* Change to your desired background color */
+  border: 1px solid #fff; /* Change to your desired border color */
+  border-radius: 4px; /* Adjust the border-radius for rounded corners */
 }
 
+/* Style for the Navbar Toggler icon when the menu is open */
+.navbar-toggler:focus {
+  outline: none !important;
+}
 .navbar-custom .navbar-nav {
   margin-left: auto; /* Align items to the right */
 }

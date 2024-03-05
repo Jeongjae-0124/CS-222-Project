@@ -91,8 +91,18 @@ const MainPage = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3, // Set the number of offers visible at once
+    slidesToShow: 3,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768, // Adjust the breakpoint as needed
+        settings: {
+          slidesToShow: 2,
+          speed: 400,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   const handleDetailsClick = (offer) => {

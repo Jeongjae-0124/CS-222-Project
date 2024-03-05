@@ -65,11 +65,12 @@
       min-width: 100%; /* Ensure at least 80% width for mobile displays */
     }
   
-    .slick-prev,
+    .slick-prev {
+      margin: 0 10px; /* Adjust arrow spacing for smaller screens */
+    } 
     .slick-next {
-      margin: 0 -10px; /* Adjust arrow spacing for smaller screens */
+      margin: 0 18px; /* Adjust arrow spacing for smaller screens */
     }
-  
     /* Ensure at least one offer is visible on mobile screens */
     .slick-track {
       display: flex;
