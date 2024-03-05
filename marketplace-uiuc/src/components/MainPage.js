@@ -7,7 +7,7 @@ import OfferCard from './OfferCard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './MainPage.css'; // Import additional CSS for MainPage styling
-
+import './OfferCard.css';
 const MainPage = () => {
   const [offers, setOffers] = useState([
     {

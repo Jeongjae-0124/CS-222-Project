@@ -2,9 +2,14 @@
 
 /* Navbar Styling */
 .navbar-custom {
-  background-color: #ffbe78; /* Dark background color */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 158, 54, 0.68); /* Dark background color */
   padding: 10px 20px; /* Padding on top and bottom */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  /*box-shadow: 0 4px 6px rgba(255, 0, 0, 0.1); /* Subtle shadow */
+  backdrop-filter: blur(6px);
 
 }
 
@@ -42,6 +47,9 @@
 }
 
 .navbar-custom .navbar-nav .nav-item {
+
+  margin-left: 20px; /* Spacing to the left */
+
   margin-right: 15px; /* Space between links */
 }
 
@@ -61,6 +69,75 @@ body {
   padding-top: 0;
 }
   
+/* Add a line between navbar brand and links on mobile */
+@media (max-width: 768px) {
+  .navbar-custom {
+    border-bottom: 1px solid #fff !important; /* Add !important to override any conflicting styles */
+  }
+
+  .navbar-custom .navbar-brand {
+    margin-right: auto !important;
+    margin-left: auto !important;
+    display: table;
+  }
+
+  .navbar-custom .navbar-nav {
+    text-align: center;
+  }
+
+  .navbar-custom .navbar-nav .nav-item {
+    margin-right: 0;
+    margin-bottom: 10px; /* Adjust the space between links and the line */
+  }
+}
+
+/* MAIN PAGE */
+
+/* src/index.css */
+
+/* Additional MainPage Styling */
+.jumbotron {
+  margin-top: 70px; /* Add margin-top as needed */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.display-4 {
+  font-weight: bold;
+}
+
+/* Featured Offers Styling */
+.row {
+  justify-content: center;
+}
+
+/* OfferCard Styling (if needed) */
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* src/components/MainPage.css */
+.slick-prev,
+.slick-next {
+  font-size: 24px;
+  color: #007bff; /* Set your desired color */
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  color: #0056b3; /* Set your desired color on hover */
+}
+
+/* Remove top padding to allow full use of the viewport */
+body {
+  padding-top: 0;
+}
+  
 
 
 /* MAIN PAGE */
@@ -69,10 +146,10 @@ body {
 
 /* Additional MainPage Styling */
 .jumbotron {
+  margin-top: 70px; /* Add margin-top as needed */
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
-
 .display-4 {
   font-weight: bold;
 }

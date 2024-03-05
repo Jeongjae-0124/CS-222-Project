@@ -6,7 +6,7 @@ import '../index.css'; // Import the custom styles
 
 const Navbar = () => {
   return (
-    <BootstrapNavbar className="navbar-custom" expand="lg">
+    <BootstrapNavbar className="navbar-custom fixed-top" expand="lg">
       <Link className="navbar-brand" to="/">
         marketplace@uiuc
       </Link>

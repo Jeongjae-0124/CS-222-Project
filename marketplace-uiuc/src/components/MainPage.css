@@ -91,7 +91,7 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
+  } 
 }
 
 /* Apply Entrance Animation to Relevant Elements */
@@ -103,5 +103,12 @@
 .carousel,
 .slick-prev,
 .slick-next {
-  animation: fadeIn 1s ease-in-out;
+  animation: fadeIn .85s ease-in-out;
 }
+.jumbotron {
+  margin-top: 70px; /* Add margin-top as needed */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+ 
