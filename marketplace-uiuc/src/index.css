@@ -23,11 +23,16 @@
   margin-left: 20px; /* Spacing to the left */
 }
 
+.navbar-custom .navbar-brand,
 .navbar-custom .navbar-brand:hover,
-.navbar-custom .navbar-brand.active {
-  color: #8a8a8a; /* Hover and active color for the brand text */
-}
+.navbar-custom .navbar-brand.active,
+.navbar-custom .navbar-brand:active  {
+   color: #ffffff !important;
+} 
+.navbar-custom .navbar-brand:hover {
+  filter: blur(0px);
 
+}
 .navbar-custom .navbar-toggler {
   border: none;
 }
@@ -52,18 +57,28 @@
 
   margin-right: 15px; /* Space between links */
 }
-
+/* Navbar Link Styling */
 .navbar-custom .navbar-nav .nav-link {
-  color: #ffffff; /* Light gray navbar link text color */
-  text-decoration: none; /* Remove underline */
-  transition: color 0.3s ease; /* Smooth color transition on hover */
-  margin-right: 15px; /* Spacing to the right */
+  color: #ffffff !important;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin-right: 15px;
+  filter: blur(0.25);  transition: filter 0.3s ease; /* Smooth transition over 0.3 seconds */
+
 }
 
+/* Remove blur for the hovered link */
 .navbar-custom .navbar-nav .nav-link:hover {
-  color: #414141; /* Hover color for the link text */
+  filter: blur(0);  
+ 
 }
 
+/* Add a class to the parent when a link is hovered */
+.navbar-custom .navbar-nav.blur-on-hover .nav-link:not(:hover) {
+  filter: blur(3px); /* Adjust the blur value for other links */
+  transition: filter 0.3s ease; /* Smooth transition over 0.3 seconds */
+
+}
 /* Remove top padding to allow full use of the viewport */
 body {
   padding-top: 0;
