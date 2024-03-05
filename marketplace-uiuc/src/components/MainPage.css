@@ -2,83 +2,106 @@
 
 /* Carousel Item Styling */
 .carousel-item {
-    cursor: pointer;
-    padding: 0 15px;
-    transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  padding: 0 15px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-item:hover {
+  transform: scale(1.05); /* Adjust the scaling on hover */
+}
+
+/* Modal Styling */
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.modal-header {
+  color: rgb(0, 0, 0);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.modal-footer {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Carousel Next/Previous Button Styling */
+.slick-prev,
+.slick-next {
+  font-size: 30px; /* Increase font size for better visibility */
+  color: #4caf4f00;
+  margin: 0 -20px;
+  border: none;
+  background: none;
+  z-index: 1; /* Set a higher z-index to prioritize visibility */
+  transition: color 0.3s ease-in-out;
+}
+ 
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 30px;
+  color: #c3c3c3;
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+  .carousel-item {
+    padding: 0 10px; /* Adjust spacing for smaller screens */
+    min-width: 100%; /* Ensure at least 80% width for mobile displays */
   }
-  
-  .carousel-item:hover {
-    transform: scale(1.05); /* Adjust the scaling on hover */
+
+  .slick-prev {
+    margin: 0 10px; /* Adjust arrow spacing for smaller screens */
   }
-  
-  /* Modal Styling */
-  .modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .modal-content {
-    width: 100%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-  }
-  
-  .modal-header {
-    color: rgb(0, 0, 0);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
-  
-  .modal-footer {
-    padding: 1rem;
-    background-color: #f8f9fa;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-  }
-  
-  /* Carousel Next/Previous Button Styling */
-  .slick-prev,
+
   .slick-next {
-    font-size: 0px;
-    color: #4caf50;
-    margin: 0 -20px;
-    border: none;
-    background: none;
+    margin: 0 18px; /* Adjust arrow spacing for smaller screens */
   }
-  
-  .slick-prev:hover,
-  .slick-next:hover {
-    color: #000000;
+
+  /* Ensure at least one offer is visible on mobile screens */
+  .slick-track {
+    display: flex;
+    min-width: 10%; /* Ensure the track is at least 100% wide */
   }
-  
-  .slick-prev:before,
-  .slick-next:before {
-    font-size: 30px;
-    color: #c3c3c3;
+
+  .slick-slide {
+    flex: 0 0 0%; /* Set each slide to 80% of the container width */
   }
-  
-  /* Mobile Styles */
-  @media screen and (max-width: 768px) {
-    .carousel-item {
-      padding: 0 10px; /* Adjust spacing for smaller screens */
-      min-width: 100%; /* Ensure at least 80% width for mobile displays */
-    }
-  
-    .slick-prev {
-      margin: 0 10px; /* Adjust arrow spacing for smaller screens */
-    } 
-    .slick-next {
-      margin: 0 18px; /* Adjust arrow spacing for smaller screens */
-    }
-    /* Ensure at least one offer is visible on mobile screens */
-    .slick-track {
-      display: flex;
-      min-width: 10%; /* Ensure the track is at least 100% wide */
-    }
-  
-    .slick-slide {
-      flex: 0 0 0%; /* Set each slide to 80% of the container width */
-    }
+}
+
+/* Entrance Animation for Page Elements */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply Entrance Animation to Relevant Elements */
+.container,
+.jumbotron,
+.input-group,
+.display-4,
+.lead,
+.carousel,
+.slick-prev,
+.slick-next {
+  animation: fadeIn 1s ease-in-out;
+}

@@ -1,6 +1,8 @@
 // src/components/MainPage.js
 import React, { useState } from 'react';
-import Slider from 'react-slick';
+import { useHistory } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable';
+import Slider from 'react-slick'; 
 import OfferCard from './OfferCard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -98,8 +100,8 @@ const MainPage = () => {
         breakpoint: 768, // Adjust the breakpoint as needed
         settings: {
           slidesToShow: 2,
-          speed: 400,
-          slidesToScroll: 1,
+          speed: 500,
+          slidesToScroll: 2,
         },
       },
     ],
