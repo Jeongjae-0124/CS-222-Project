@@ -9,7 +9,7 @@ const NewOfferForm = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ title, description, price, contact });
+    onSubmit({ title, description, price, contact }); // set based on what's being inputted below (in the input fields)
     // Reset form fields after submission
     setTitle('');
     setDescription('');
@@ -20,18 +20,18 @@ const NewOfferForm = ({ onSubmit }) => {
   return (
     <div className="card mt-4">
       <div className="card-body">
-        <h5 className="card-title">Submit a New Offer</h5>
+        <h5 className="card-title">Submit a New Offer</h5> 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="title">Title</label>
+            <label htmlFor="title">Title</label> {/* This is like the title div for creating the form*/}
             <input
               type="text"
               className="form-control"
               id="title"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)} 
               required
-            />
+            /> {/*  apply the js function for whatever is inputted as title*/}
           </div>
           <div className="form-group">
             <label htmlFor="description">Description</label>
@@ -53,7 +53,7 @@ const NewOfferForm = ({ onSubmit }) => {
               onChange={(e) => setPrice(e.target.value)}
               required
             />
-          </div>
+          </div> {/* same but for setting price, contact, info */}
           <div className="form-group">
             <label htmlFor="contact">Contact Information</label>
             <input
