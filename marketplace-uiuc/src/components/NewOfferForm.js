@@ -1,28 +1,35 @@
-// src/components/NewOfferForm.js
-import React, { useState, useEffect } from 'react';
-import { useMsal } from '@azure/msal-react';
+import React, { useState } from 'react';
 
 const NewOfferForm = ({ onSubmit }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const { accounts } = useMsal();
+  const [contact, setContact] = useState('');
+  const [image, setImage] = useState(null); // State to store the image
 
-  useEffect(() => {
-    // Set user's email if logged in
-    if (accounts.length > 0) {
-      setUserEmail(accounts[0].username);
+  // Function to handle converting the file to a base64-encoded string
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      setImage(null);
+      return;
     }
-  }, [accounts]);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ title, description, price, contact: userEmail });
-    // Reset form fields after submission
+    onSubmit({ title, description, price, contact, image }); // Include the image in the submission
     setTitle('');
     setDescription('');
     setPrice('');
+    setContact('');
+    setImage(null); // Reset the image state
   };
 
   return (
@@ -30,6 +37,7 @@ const NewOfferForm = ({ onSubmit }) => {
       <div className="card-body">
         <h5 className="card-title">Submit a New Offer</h5>
         <form onSubmit={handleSubmit}>
+          {/* Existing form fields for title, description, price, and contact */}
           <div className="form-group">
             <label htmlFor="title">Title</label>
             <input
@@ -62,9 +70,31 @@ const NewOfferForm = ({ onSubmit }) => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Submit Offer
-          </button>
+          <div className="form-group">
+            <label htmlFor="contact">Contact Information</label>
+            <input
+              type="text"
+              className="form-control"
+              id="contact"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+              required
+            />
+          </div>
+
+          {/* New input field for selecting an image */}
+          <div className="form-group">
+            <label htmlFor="image">Image</label>
+            <input
+              type="file"
+              className="form-control"
+              id="image"
+              onChange={handleImageChange}
+              accept="image/*" // Accept only image files
+            />
+          </div>
+
+          <button type="submit" className="btn btn-primary">Submit Offer</button>
         </form>
       </div>
     </div>

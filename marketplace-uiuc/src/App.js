@@ -7,6 +7,7 @@ import Profile from './components/Profile';
 import HelpPage from './components/HelpPage';  // Import HelpPage component
 import Postings from './components/Postings';
 import Threads from './components/Threads';
+import ProductDetail from './components/ProductDetail'; 
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/helppage" element={<HelpPage />} />  {/* Use HelpPage component here */}
         <Route path="/postings" element={<Postings />} />
         <Route path="/threads" element={<Threads />} />
+        <Route path="/productdetail" element={<ProductDetail />} />
       </Routes>
     </Router>
   );
