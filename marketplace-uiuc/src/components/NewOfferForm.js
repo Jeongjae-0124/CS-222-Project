@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function Adduser()
 {   
     const navigate= useNavigate();    
-    const [formvalue, setFormvalue]= useState({title:'', description:'', price:'', contact:'',image_url:''});
+    const [formvalue, setFormvalue]= useState({title:'', description:'', price:'', contact:''});
     const [message, setMessage]= useState('');
     const [image, setImage] = useState(null);
     const handleInput =(e)=>{
@@ -92,7 +92,7 @@ function Adduser()
                   <input
                     type="file"
                     className="form-control"
-                    name="image"
+                    id="image"
                     onChange={handleImageChange}
                     accept="image/*" // Accept only image files
                     required
