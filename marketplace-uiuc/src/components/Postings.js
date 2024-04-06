@@ -1,25 +1,9 @@
-import React, { useEffect,useState } from 'react';
+import React, { useState } from 'react';
 import { MsalAuthenticationTemplate, useMsal } from '@azure/msal-react';
 import NewOfferForm from './NewOfferForm';
 import OfferCard from './OfferCard';
-import axios from "axios";
 
 const Postings = () => {
-
-  const [users, setUsers] = useState([]);
-    useEffect(() => {
-        getUsers();
-    }, []);
- 
-    function getUsers() {
-      axios.get('http://localhost:3000/api/index.php').then(function(response) {
-        console.log(response.data);
-        setUsers(response.data);
-      });
-    }
-
-
-
   const [postings, setPostings] = useState([
     {
       id: 1,
