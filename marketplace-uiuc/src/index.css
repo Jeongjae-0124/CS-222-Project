@@ -50,7 +50,10 @@
 .navbar-custom .navbar-nav {
   margin-left: auto; /* Align items to the right */
 }
-
+.highlight-on-hover {
+  background-color: yellow; /* Change this to the desired highlight color */
+  color: black; /* Change this to the desired text color */
+}
 .navbar-custom .navbar-nav .nav-item {
 
   margin-left: 20px; /* Spacing to the left */
@@ -59,23 +62,25 @@
 }
 /* Navbar Link Styling */
 .navbar-custom .navbar-nav .nav-link {
-  color: #ffffff !important;
+  color: #ffffff;
   text-decoration: none;
   transition: color 0.3s ease;
   margin-right: 15px;
-  filter: blur(0.25);  transition: filter 0.3s ease; /* Smooth transition over 0.3 seconds */
+  filter: blur(0.04);  transition: filter 0.3s ease; /* Smooth transition over 0.3 seconds */
 
 }
 
 /* Remove blur for the hovered link */
 .navbar-custom .navbar-nav .nav-link:hover {
-  filter: blur(0);  
- 
+  filter: blur(0);   
+  color:rgba(0, 0, 0, 0.603);
+  transition: filter 0.3s ease; /* Smooth transition over 0.3 seconds */
+
 }
 
 /* Add a class to the parent when a link is hovered */
 .navbar-custom .navbar-nav.blur-on-hover .nav-link:not(:hover) {
-  filter: blur(3px); /* Adjust the blur value for other links */
+  filter: blur(1.2px); /* Adjust the blur value for other links */
   transition: filter 0.3s ease; /* Smooth transition over 0.3 seconds */
 
 }
