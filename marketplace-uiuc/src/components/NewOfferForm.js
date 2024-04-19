@@ -77,8 +77,7 @@ function Adduser()
                    required
                  />
                </div>
-
-
+               
                <button type="submit" className="btn btn-primary">Submit Offer</button>
              </form>
            </div>
