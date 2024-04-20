@@ -7,8 +7,8 @@ const HelpPage = () => {
       <div className="jumbotron bg-light help-jumbotron shadow">
         <h2 className="display-4 text-center mb-4">Help Page</h2>
         <p className="lead text-center">
-          Welcome to the Help Page! If you have any questions or need assistance,
-          feel free to reach out.
+          <i>Welcome to the Help Page! If you have any questions or need assistance,
+          feel free to reach out.</i>
         </p>
 
         <section className="faq-section">
@@ -36,6 +36,18 @@ const HelpPage = () => {
                 Provide clear details about your item or service, such as a descriptive
                 title, a comprehensive description, the price, and a valid contact email.
                 Adding images can also enhance your posting.
+              </p>
+            </li>
+            <li>
+              <strong>How do I create a Microsoft OAuth account?</strong>
+              <p>
+              If you don't have one already, start by creating a Microsoft account. 
+              Visit the Microsoft sign-up page and follow the prompts to create your account.
+              </p>
+              <p>
+              Once you have your Microsoft account set up, navigate to the Microsoft Developer Portal.
+              You can find it by searching "Microsoft Developer Portal" in your search engine. 
+              From there, sign in with your newly created Microsoft account, and you'll be ready to start using OAuth for authentication in your applications.
               </p>
             </li>
             {/* Add more questions and answers as needed */}
