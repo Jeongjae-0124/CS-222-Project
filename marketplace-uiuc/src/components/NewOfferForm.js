@@ -2,7 +2,11 @@
 import axios from "axios";
 import React, {useState }from "react";
 import { useNavigate } from "react-router-dom";
-function Adduser()
+import { MsalAuthenticationTemplate, useMsal } from '@azure/msal-react';
+import { msalConfig } from '../msalConfig.js';
+
+
+function NewOfferForm()
 {  
    const navigate= useNavigate();   
    const[title, setTitle]= useState('');
@@ -11,11 +15,13 @@ function Adduser()
    const[contact,setContact] = useState('');
    const [message, setMessage]= useState('');
    const[pfile, setPfile]= useState('');
+   const { accounts } = useMsal();
+   const currentUser = accounts[0];
    
    const handleSubmit =async(e)=>{
         e.preventDefault();
-        //console.log(formvalue);
-        const formData= {title:title, description:description, price:price,contact:contact,pfile:pfile};
+        const formData= {userID:currentUser.username,title:title,description:description, price:price,contact:contact,pfile:pfile};
+        console.log(formData);
         const res= await axios.post("http://localhost/react/api/index.php", formData, {
          headers:{'Content-Type':"multipart/form-data"},
         });       
@@ -66,7 +72,6 @@ function Adduser()
                  />
                </div>
 
-
                <div className="form-group">
                  <label htmlFor="image">Image</label>
                  <input
@@ -84,4 +89,4 @@ function Adduser()
          </div>
  );
 };
-export default Adduser;
+export default NewOfferForm;

@@ -3,18 +3,16 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 // Defining the OfferCard component, which receives 'offer' as a prop
-const OfferCard = ({ offer }) => {
+const OfferCard = ({ offer}) => {
   // useState hook to manage the visibility state of the modal dialog
   const [showModal, setShowModal] = useState(false);
-  // useNavigate hook for navigation. The commented-out line is an older approach using useHistory
   const navigate = useNavigate();
 
-  // Function to toggle the modal's visibility
   const handleModalToggle = () => {
     setShowModal(!showModal);
   };
 
-  // Function to navigate to the product detail page
+
   const handleViewDetails = () => {
     navigate('/productdetail');
   };
@@ -24,14 +22,14 @@ const OfferCard = ({ offer }) => {
     // A card container div
     <div className="card">
       <div className="card-body">
-        {/* Conditionally rendering the offer's image if it exists */}
+
         {offer.image && (
-          <img src={offer.image} alt={offer.title} className="card-img-top" style={{ maxWidth: '100%', height: 'auto' }} />
+          <img src={`http://localhost/react/images/${offer.image}`} alt={offer.title} className="card-img-top" height={200} width={90} />
         )}
         <h5 className="card-title">{offer.title}</h5>
-        <p className="card-text">{offer.description}</p>
-        <p className="card-text">Price: {offer.price}</p>
-        <p className="card-text">Contact: {offer.contact}</p>
+        <p className="card-text-des">{offer.description}</p>
+        <p className="card-text-price">Price: {offer.price}</p>
+        <p className="card-text-contact">Contact: {offer.contact}</p>
         <button className="btn btn-primary" onClick={handleViewDetails}>
           View Details
         </button>
