@@ -23,7 +23,6 @@ const ProductList = () => {
   const handleModalClose = () => {
     setSelectedProduct(null);
   };
-
   return (
     <div className="container mt-4">
       <h2>Available Products</h2>
