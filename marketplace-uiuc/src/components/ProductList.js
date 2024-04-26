@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 
 const ProductList = () => {
-  const [products, setProducts] = useState([
-    { id: 1, name: 'Textbook', price: '$50', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida justo nec' },
-    { id: 2, name: 'Notebook Set', price: '$10', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida justo nec' },
-    // Add more products as needed
-  ]);
+  const[product, setProduct]= useState([]);
+
+
+  useEffect( ()=>{
+    const getProduct= ()=>{
+        fetch("http://localhost/react/api/index.php")
+        .then(res=>{ return res.json()})
+        .then(data=>{ setProduct(data)})
+        .catch(error=>{ console.log(error)});
+    }
+    getProduct();
+  },[]);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -16,17 +23,19 @@ const ProductList = () => {
   const handleModalClose = () => {
     setSelectedProduct(null);
   };
-
   return (
     <div className="container mt-4">
       <h2>Available Products</h2>
       <div className="row">
-        {products.map((product) => (
-          <div key={product.id} className="col-md-4 mb-4">
+        {product.map((pdata,index) => (
+          <div key={index} className="col-md-4 mb-4">
             <div className="card">
               <div className="card-body">
-                <h5 className="card-title">{product.name}</h5>
-                <p className="card-text">{product.price}</p>
+                <h5 className="card-title">{pdata.title}</h5>
+                <p className="card-text-des">{pdata.description}</p> 
+                <p className="card-text-price">{pdata.price}</p> 
+                <p className="card-text-contact">{pdata.contact}</p>
+            
                 <button
                   className="btn btn-primary"
                   data-toggle="modal"
