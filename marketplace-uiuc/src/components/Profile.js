@@ -106,7 +106,7 @@ const Profile = () => {
           </div>
         )}
       </div>
-      {user ? (
+      {/* {user ? (
         <div className="row mt-4">
         {postings.map((posting) => (
           <div key={posting.id} className="col-lg-4 col-md-6 mb-4">
@@ -117,7 +117,7 @@ const Profile = () => {
       ) : (
         <div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
