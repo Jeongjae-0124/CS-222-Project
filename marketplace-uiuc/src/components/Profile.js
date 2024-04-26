@@ -6,10 +6,7 @@ import NewOfferForm from './NewOfferForm';
 import OfferCard from './OfferCard';
 
 const Profile = () => {
-  const [postings, setPostings] = useState([
-   
-  ]);
-
+  const [postings, setPostings] = useState([]);
   const [user, setUser] = useState(null);
   const [showSignInPopup, setShowSignInPopup] = useState(false);
   const { instance, accounts } = useMsal();
@@ -106,18 +103,19 @@ const Profile = () => {
           </div>
         )}
       </div>
-      {user ? (
-        <div className="row mt-4">
-        {postings.map((posting) => (
-          <div key={posting.id} className="col-lg-4 col-md-6 mb-4">
-            <OfferCard offer={posting} />
-          </div>
-        ))}
-        </div>  
-      ) : (
-        <div>
-        </div>
-      )}
+
+    {user
+        ? (<div className="row mt-4">
+            {
+                postings.length > 0 && postings.map((posting) => (<div key={posting.id} className="col-lg-4 col-md-6 mb-4">
+                    <OfferCard offer={posting}/>
+                </div>))
+            }
+        </div>)
+        : (<div>
+            {/* Optionally, add UI elements to indicate there are no postings or the user is not logged in */}
+        </div>)}
+
     </div>
   );
 };
