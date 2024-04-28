@@ -24,7 +24,8 @@ const ProductDetailPage = () => {
   // Handler for submitting a new comment
   const handleSubmitComment = () => {
     if (newComment.trim() !== '') {
-      setComments([...comments, newComment]);
+      const currentTime = new Date().getTime(); // Get current time in milliseconds
+      setComments([...comments, { text: newComment, timestamp: currentTime }]);
       setNewComment(''); // Reset input field after submission
     }
   };
@@ -49,7 +50,26 @@ const ProductDetailPage = () => {
           {/* List of comments */}
           <ul className="list-group">
             {comments.map((comment, index) => (
-              <li key={index} className="list-group-item">{comment}</li>
+              <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>
+                    <span className="badge badge-primary mr-2">{"Username"}</span>
+                  </strong>
+                  <div>{comment.text}</div>
+                </div>
+                <small className="text-muted">
+                <span className="badge badge-secondary">{" "}
+                {new Date(comment.timestamp).toLocaleString(navigator.language, {
+                  year: "2-digit",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: true,
+                })}
+                </span>
+              </small>
+              </li>
             ))}
           </ul>
           <div className="mt-4">
