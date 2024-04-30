@@ -14,8 +14,9 @@ const OfferCard = ({ offer}) => {
 
 
   const handleViewDetails = () => {
-    navigate('/productdetail');
+    navigate('/productdetail', { state: { offer } });
   };
+  
 
   // The component's rendered JSX
   return (

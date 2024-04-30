@@ -1,45 +1,49 @@
-import React, { useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
-const ProductList = () => {
-  const[product, setProduct]= useState([]);
-
-
-  useEffect( ()=>{
-    const getProduct= ()=>{
-        fetch("http://localhost/react/api/index.php")
-        .then(res=>{ return res.json()})
-        .then(data=>{ setProduct(data)})
-        .catch(error=>{ console.log(error)});
-    }
-    getProduct();
-  },[]);
-
+const ProductList = ({ history }) => {
+  const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("http://localhost/react/api/index.php");
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
+    history.push({
+      pathname: '/product-detail', // Route to the product detail page
+      state: { offer: product }
+    });
   };
 
   const handleModalClose = () => {
     setSelectedProduct(null);
   };
+
   return (
     <div className="container mt-4">
       <h2>Available Products</h2>
       <div className="row">
-        {product.map((pdata,index) => (
+        {products.map((product, index) => (
           <div key={index} className="col-md-4 mb-4">
             <div className="card">
               <div className="card-body">
-                <h5 className="card-title">{pdata.title}</h5>
-                <p className="card-text-des">{pdata.description}</p> 
-                <p className="card-text-price">{pdata.price}</p> 
-                <p className="card-text-contact">{pdata.contact}</p>
-            
+                <h5 className="card-title">{product.title}</h5>
+                <p className="card-text-des">{product.description}</p>
+                <p className="card-text-price">{product.price}</p>
+                <p className="card-text-contact">{product.contact}</p>
+
                 <button
                   className="btn btn-primary"
-                  data-toggle="modal"
-                  data-target="#productModal"
                   onClick={() => handleProductClick(product)}
                 >
                   View Details
@@ -64,7 +68,7 @@ const ProductList = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="productModalLabel">
-                  {selectedProduct.name}
+                  {selectedProduct.title}
                 </h5>
                 <button
                   type="button"

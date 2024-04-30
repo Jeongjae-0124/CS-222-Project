@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../ProductDetail.css'; 
+
 const ProductDetailPage = () => {
   const location = useLocation();
   
   // Destructuring with default values for product properties
   const { 
     image = 'defaultImageURL', // Replace 'defaultImageURL' with an actual URL or path to a default image
-    name = 'Default Product Name',
+    title = 'Default Product Title',
+    description = 'No description available',
     price = 'Contact for price',
     contact = 'No contact info',
   } = location.state?.offer || {}; // Using optional chaining and fallback to empty object
@@ -35,10 +37,14 @@ const ProductDetailPage = () => {
       <div className="row">
         <div className="col-md-6">
           {/* Displaying the product image with a default fallback */}
-          <img src={image} alt={name} className="img-fluid" />
+          {image && (
+          <img src={`http://localhost/react/images/${image}`} alt={title} className="card-img-top"  height={300} width={50}  />
+        )} 
         </div>
         <div className="col-md-6">
-          <h2>{name}</h2>
+          <h2>{title}</h2>
+          
+          <p>Description: {description}</p>
           <p>Price: {price}</p>
           <p>Contact Seller: {contact}</p>
         </div>
