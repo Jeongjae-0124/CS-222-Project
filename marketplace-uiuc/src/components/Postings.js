@@ -1,4 +1,4 @@
-import React, { useState,useEffect} from 'react';
+import React, { useState,useEffect,useRef} from 'react';
 import { MsalAuthenticationTemplate, useMsal } from '@azure/msal-react';
 import NewOfferForm from './NewOfferForm';
 import OfferCard from './OfferCard';
@@ -8,6 +8,9 @@ import OfferCard from './OfferCard';
 const Postings = () => {
   const [postings, setPostings] = useState([
   ]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6); // Number of products every page
+  const containerRef = useRef(null);
 
   useEffect( ()=>{
     const getProduct= ()=>{
@@ -37,6 +40,16 @@ const Postings = () => {
     setPostings(updatedPostings);
   };
 
+  const totalPages = Math.ceil(postings.length / itemsPerPage);
+
+  const indexOfLastProduct = currentPage * itemsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
+  const currentProducts = postings.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="container mt-4">
       <div className="jumbotron bg-light text-dark text-center">
@@ -46,14 +59,26 @@ const Postings = () => {
 
       {isLoggedIn && <NewOfferForm onSubmit={handleNewPostingSubmit} />}
 
-      <div className="row mt-4">
-        {postings.map((posting) => (
-          <div key={posting.id} className="col-lg-4 col-md-6 mb-4">
-
-            <OfferCard offer={posting} />
+      <div className="container mt-4">
+      <h2>Available Products</h2>
+      <div className="row">
+        {currentProducts.map((product, index) => (
+          <div key={index} className="col-md-4 mb-4">
+            <OfferCard offer={product} />
           </div>
         ))}
       </div>
+
+      <nav>
+        <ul className="pagination justify-content-center">
+          {[...Array(totalPages)].map((_, pageNumber) => (
+            <li key={pageNumber} className={`page-item ${currentPage === pageNumber + 1 ? 'active' : ''}`}>
+              <button className="page-link" onClick={() => handlePageChange(pageNumber + 1)}>{pageNumber + 1}</button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
     </div>
   );
 };
